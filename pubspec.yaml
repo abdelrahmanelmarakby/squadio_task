@@ -2,21 +2,23 @@ name: squadio_task
 version: 1.0.0+1
 publish_to: none
 description: A new Flutter project.
-environment: 
+environment:
   sdk: '>=2.15.0 <3.0.0'
 
-dependencies: 
+dependencies:
   cupertino_icons: ^1.0.2
+  flutter:
+    sdk: flutter
   get: 4.6.1
-  flutter: 
-    sdk: flutter
+  get_storage: ^2.0.3
+  google_fonts: any
+  tmdb_api: ^2.1.0
 
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^1.0.0
-  lints: 1.0.1
-  flutter_test: 
+  flutter_test:
     sdk: flutter
+  lints: 1.0.1
 
-flutter: 
+flutter:
   uses-material-design: true
-
