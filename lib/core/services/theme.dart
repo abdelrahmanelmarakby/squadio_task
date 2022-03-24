@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:squadio_task/core/resourses/color_manger.dart';
 import 'package:squadio_task/core/resourses/theme_manger.dart';
 

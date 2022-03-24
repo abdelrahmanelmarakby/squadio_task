@@ -1,20 +1,17 @@
 import 'package:get/get.dart';
+import 'package:squadio_task/core/consts.dart';
+import 'package:tmdb_api/tmdb_api.dart';
 
 class HomeController extends GetxController {
-  //TODO: Implement HomeController
+  Future<Map> getData() async {
+    Map trending = await Constants.tmdbWithCustomLogs.v3.people.getPopular();
+    print(trending);
+    return trending;
+  }
 
-  final count = 0.obs;
   @override
   void onInit() {
+    getData();
     super.onInit();
   }
-
-  @override
-  void onReady() {
-    super.onReady();
-  }
-
-  @override
-  void onClose() {}
-  void increment() => count.value++;
 }

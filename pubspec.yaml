@@ -6,19 +6,33 @@ environment:
   sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
+  cached_network_image: any
   cupertino_icons: ^1.0.2
   flutter:
     sdk: flutter
   get: 4.6.1
   get_storage: ^2.0.3
-  google_fonts: any
   tmdb_api: ^2.1.0
 
 dev_dependencies:
+  flutter_driver: any
   flutter_lints: ^1.0.0
   flutter_test:
     sdk: flutter
+
   lints: 1.0.1
 
 flutter:
   uses-material-design: true
+
+  fonts:
+    - family: Tajawal
+      fonts:
+        - asset: assets/fonts/Tajawal-Light.ttf
+          weight: 300
+        - asset: assets/fonts/Tajawal-Regular.ttf
+          weight: 400
+        - asset: assets/fonts/Tajawal-Medium.ttf
+          weight: 500
+        - asset: assets/fonts/Tajawal-Bold.ttf
+          weight: 700
