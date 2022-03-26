@@ -10,6 +10,8 @@ dependencies:
   cached_network_image: any
   cupertino_icons: ^1.0.2
   dio: ^4.0.4
+  dio_cache_interceptor: any
+  ease: ^0.0.10
   flutter:
     sdk: flutter
   get: 4.6.1

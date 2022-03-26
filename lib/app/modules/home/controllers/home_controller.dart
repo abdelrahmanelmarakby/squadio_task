@@ -9,7 +9,7 @@ class HomeController extends GetxController {
   RxList<ActorsModel> actors = <ActorsModel>[].obs;
 
   Future<List<ActorsModel>> getData() async {
-    actors.value = await HomeApis.getActors();
+    await HomeApis.getActors().then((value) => actors.value = value);
     return actors;
   }
 

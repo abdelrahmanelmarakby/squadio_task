@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:animate_do/animate_do.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:squadio_task/app/data/models/actors_model.dart';
 import 'package:squadio_task/app/routes/app_pages.dart';
 import 'package:squadio_task/core/resourses/color_manger.dart';
@@ -20,7 +23,7 @@ class HomeView extends GetView<HomeController> {
         appBar: HomeAppBar(),
         body: FutureBuilder<List<ActorsModel>>(
             builder: (context, snapshot) {
-              if (snapshot.hasData) {
+              if (snapshot.connectionState == ConnectionState.done) {
                 List<ActorsModel>? actors = snapshot.data;
                 return Obx(() {
                   return Column(
@@ -40,6 +43,9 @@ class HomeView extends GetView<HomeController> {
                   );
                 });
               } else {
+                Future.delayed(Duration(seconds: 2), () {
+                  print(GetStorage().read("actors"));
+                });
                 return Center(child: CupertinoActivityIndicator());
               }
             },
