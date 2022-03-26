@@ -1,17 +1,13 @@
 import 'package:get/get.dart';
+import 'package:squadio_task/app/data/apis/home_apis.dart';
+import 'package:squadio_task/app/data/models/actors_model.dart';
 import 'package:squadio_task/core/consts.dart';
-import 'package:tmdb_api/tmdb_api.dart';
 
 class HomeController extends GetxController {
-  Future<Map> getData() async {
-    Map trending = await Constants.tmdbWithCustomLogs.v3.people.getPopular();
-    print(trending);
-    return trending;
-  }
+  RxList<ActorsModel> actors = <ActorsModel>[].obs;
 
-  @override
-  void onInit() {
-    getData();
-    super.onInit();
+  Future<List<ActorsModel>> getData() async {
+    actors.value = await HomeApis.getActors();
+    return actors;
   }
 }

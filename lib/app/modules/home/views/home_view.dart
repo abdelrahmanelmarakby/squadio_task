@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
+import 'package:squadio_task/app/data/models/actors_model.dart';
 import 'package:squadio_task/app/routes/app_pages.dart';
 import 'package:squadio_task/core/resourses/color_manger.dart';
 import 'package:squadio_task/core/resourses/styles_manger.dart';
@@ -15,10 +16,10 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: HomeAppBar(),
-        body: FutureBuilder<Map>(
+        body: FutureBuilder<List<ActorsModel>>(
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                Map? trending = snapshot.data;
+                List<ActorsModel>? actors = snapshot.data;
                 return Padding(
                   padding: const EdgeInsets.all(AppPadding.padding12),
                   child: SingleChildScrollView(
@@ -26,11 +27,11 @@ class HomeView extends GetView<HomeController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         PopularListView(
-                          trending: trending,
+                          actors: actors,
                           listNumber: 0,
                         ),
                         PopularListView(
-                          trending: trending,
+                          actors: actors,
                           listNumber: 1,
                         )
                       ],
@@ -48,11 +49,11 @@ class HomeView extends GetView<HomeController> {
 class PopularListView extends StatelessWidget {
   const PopularListView({
     Key? key,
-    required this.trending,
+    required this.actors,
     required this.listNumber,
   }) : super(key: key);
 
-  final Map? trending;
+  final List<ActorsModel>? actors;
   final int listNumber;
   @override
   Widget build(BuildContext context) {
@@ -67,14 +68,13 @@ class PopularListView extends StatelessWidget {
           height: 350,
           child: CardListView(
             children: List.generate(
-              trending!['results'].length,
+              actors!.length,
               (index) => ImageCard(
-                (trending!['results'][index]["name"]),
-                "https://image.tmdb.org/t/p/w500${trending!['results'][index]["profile_path"]}",
-                "popularity : ${trending!['results'][index]["popularity"]}",
-                heroTag: ((trending!['results'][index]["id"] + listNumber)
-                    .toString()),
-                personId: trending!['results'][index]["id"],
+                (actors![index].firstName.toString()),
+                actors![index].imageUrl.toString(),
+                " ${actors![index].family.toString()}",
+                heroTag: (actors![index].id! + listNumber).toString(),
+                person: actors![index],
               ),
             ),
           ),
@@ -85,10 +85,10 @@ class PopularListView extends StatelessWidget {
 }
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeAppBar({
+  HomeAppBar({
     Key? key,
   }) : super(key: key);
-
+  final HomeController controller = Get.find();
   @override
   Widget build(BuildContext context) {
     return AppBar(
@@ -111,8 +111,12 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
         ),
       ),
       actions: [
-        AppBarActionIcon(icon: CupertinoIcons.search),
-        AppBarActionIcon(icon: CupertinoIcons.bell),
+        GestureDetector(
+          onTap: () {
+            Get.toNamed(Routes.SEARCH, arguments: controller.actors);
+          },
+          child: AppBarActionIcon(icon: CupertinoIcons.search),
+        ),
         GestureDetector(
             onTap: () => ThemeService().switchTheme(),
             child: AppBarActionIcon(icon: CupertinoIcons.settings)),
@@ -179,16 +183,16 @@ class ImageCard extends StatelessWidget {
   final String imageUrl;
   final String subtitle;
   final String heroTag;
-  final int personId;
+  final ActorsModel person;
   ImageCard(this.text, this.imageUrl, this.subtitle,
-      {Key? key, required this.heroTag, required this.personId})
+      {Key? key, required this.heroTag, required this.person})
       : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () => Get.toNamed(Routes.DETAILS,
-          arguments: {"heroTag": heroTag, "personId": personId}),
+          arguments: {"heroTag": heroTag, "person": person}),
       child: Padding(
         padding: const EdgeInsets.only(left: 25.0, bottom: 15),
         child: Container(

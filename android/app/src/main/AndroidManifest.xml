@@ -1,10 +1,22 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.squadio.squadio_task">
-   <application
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <application
         android:label="squadio_task"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
-        <activity
+
+       <provider
+           android:name="com.ko2ic.imagedownloader.FileProvider"
+           android:authorities="${applicationId}.image_downloader.provider"
+           android:exported="false"
+           android:grantUriPermissions="true">
+           <meta-data
+               android:name="android.support.FILE_PROVIDER_PATHS"
+               android:resource="@xml/provider_paths"/>
+       </provider>
+
+       <activity
             android:name=".MainActivity"
             android:exported="true"
             android:launchMode="singleTop"
@@ -31,4 +43,5 @@
             android:name="flutterEmbedding"
             android:value="2" />
     </application>
+
 </manifest>
