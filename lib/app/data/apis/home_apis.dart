@@ -19,8 +19,8 @@ class HomeApis {
       print(actorsList);
       GetStorage().write("actors", actorsList);
       return actorsList;
-    } catch (e) {
-      print(e);
+    } on DioError catch (e) {
+      print(e.error);
       return GetStorage().read("actors");
     }
   }

@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -15,7 +16,7 @@ class DetailsView extends GetView<DetailsController> {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-          iconTheme: IconThemeData(color: Colors.black),
+          iconTheme: IconThemeData(color: ColorsManger.darkGrey),
           title: Text(
             controller.actor.fullName ?? "N/A",
             style: getMediumTextStyle(fontSize: 22, color: Colors.black),
@@ -51,8 +52,8 @@ class ActorImage extends StatelessWidget {
     return Container(
       decoration: BoxDecoration(boxShadow: [
         BoxShadow(
-          offset: Offset(20, 10),
-          color: Colors.grey.withOpacity(0.25),
+          offset: Offset(10, 20),
+          color: Colors.grey.withOpacity(0.10),
           blurRadius: 10,
         ),
       ]),
@@ -64,11 +65,11 @@ class ActorImage extends StatelessWidget {
                 tag: Get.arguments['heroTag'],
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(AppPadding.padding12),
-                  child: Image.network(
-                    person?.imageUrl ?? "",
-                    errorBuilder: (context, error, stackTrace) => Center(
-                      child: Text("Can't load image"),
-                    ),
+                  child: CachedNetworkImage(
+                    imageUrl: person?.imageUrl ?? "",
+                    placeholder: (context, string) =>
+                        CupertinoActivityIndicator(),
+                    errorWidget: (context, string, object) => Icon(Icons.error),
                     height: MediaQuery.of(context).size.height / 2.1,
                     width: double.infinity,
                     fit: BoxFit.cover,
@@ -105,36 +106,45 @@ class ActorDescription extends StatelessWidget {
       padding: const EdgeInsets.all(AppPadding.padding18),
       child: Container(
         decoration: BoxDecoration(
-            color: Colors.blueGrey,
+            color: ColorsManger.darkGrey,
             borderRadius: BorderRadius.circular(AppPadding.padding12),
             boxShadow: [
               BoxShadow(
-                offset: Offset(20, 10),
-                color: Colors.grey.withOpacity(0.25),
+                offset: Offset(20, 20),
+                color: Colors.grey.withOpacity(0.10),
                 blurRadius: 10,
               ),
             ]),
         child: Column(
           children: ListTile.divideTiles(tiles: [
             ListTile(
-              title: Text("First Name"),
+              title: Text(
+                "First Name",
+                style: getBoldTextStyle(color: Colors.white),
+              ),
               subtitle: Text(
                 controller.actor.firstName ?? "N/A",
-                style: getMediumTextStyle(fontSize: 18, color: Colors.black),
+                style: getMediumTextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
             ListTile(
-              title: Text("Last Name"),
+              title: Text(
+                "Last Name",
+                style: getBoldTextStyle(color: Colors.white),
+              ),
               subtitle: Text(
                 controller.actor.lastName ?? "N/A",
-                style: getMediumTextStyle(fontSize: 18, color: Colors.black),
+                style: getMediumTextStyle(fontSize: 18, color: Colors.white),
               ),
             ),
             ListTile(
-              title: Text("Family Name"),
+              title: Text(
+                "Family Name",
+                style: getBoldTextStyle(color: Colors.white),
+              ),
               subtitle: Text(
                 controller.actor.family ?? "N/A",
-                style: getMediumTextStyle(fontSize: 18, color: Colors.black),
+                style: getMediumTextStyle(fontSize: 18, color: Colors.white),
               ),
             )
           ], context: context)

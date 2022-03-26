@@ -1,4 +1,12 @@
 include: package:lints/recommended.yaml
 linter:
   rules:
+    always_declare_return_types:
+    always_require_non_null_assertions:
+    always_put_control_body_on_new_line:
+    prefer_const_constructors_in_immutables:
+    prefer_final_fields:
+    prefer_final_in_interfaces:
+    prefer_final_locals:
+    prefer_final_typedefs:
     

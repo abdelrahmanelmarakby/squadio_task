@@ -6,14 +6,15 @@ environment:
   sdk: '>=2.15.0 <3.0.0'
 
 dependencies:
+  animate_do: any
   cached_network_image: any
   cupertino_icons: ^1.0.2
+  dio: ^4.0.4
   flutter:
     sdk: flutter
   get: 4.6.1
   get_storage: ^2.0.3
   image_downloader: ^0.31.0
-  tmdb_api: ^2.1.0
 
 dev_dependencies:
   flutter_driver: any
